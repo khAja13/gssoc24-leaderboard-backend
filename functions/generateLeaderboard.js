@@ -22,8 +22,10 @@ async function generateLeaderboard() {
         points: 45
     }]
     for (let m = 0; m < projects.length; m++) {
-        projects[m].project_link = projects[m].project_link.split("/")[3] + "/" + (projects[m].project_link.split("/")[4] ? projects[m].project_link.split("/")[4] : '')
-        await axios.get(`https://api.github.com/search/issues?q=repo:${projects[m].project_link}+is:pr+label:gssoc24,GSSoC'24+is:merged+closed:2023-05-20..2024-05-21&per_page=100`, {
+        let projectLink = projects[m].project_link;
+        projects[m].project_link = projects[m].project_link.split("/")[3] + "/" + (projects[m].project_link.split("/")[4] ? projects[m].project_link.split("/")[4] : '');
+
+        await axios.get(`https://api.github.com/search/issues?q=repo:${projects[m].project_link}+is:pr+label:gssoc24,GSSoC'24,gssoc+is:merged+closed:2024-05-10..2024-05-21&per_page=100`, {
             headers: {
                 Authorization: 'token ' + process.env.GIT_TOKEN
             }
@@ -102,9 +104,10 @@ async function generateLeaderboard() {
 
             }
         }).catch(function (err) {
-            console.log("Not found");
+            console.log("Not found for this project link ", projectLink);
         }
         )
+
         console.log("Completed " + (m + 1) + " of " + projects.length);
         await timer(7000);
     }
