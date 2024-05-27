@@ -10,12 +10,6 @@ function updateLeaderboardJob() {
         console.log("========")
         generateLeaderboard();
     });
-
-    schedule.scheduleJob('*/2 * * * * *', function () {
-        console.log("========")
-        console.log("Testing leaderboard updation job...");
-        console.log("========")
-    });
 }
 
 module.exports.updateLeaderboardJob = updateLeaderboardJob;
