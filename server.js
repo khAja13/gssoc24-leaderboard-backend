@@ -5,6 +5,7 @@ const { generateLeaderboard } = require('./functions/generateLeaderboard');
 const { updateLeaderboardJob } = require('./jobs/updateOSLeaderboard');
 const fs = require('fs');
 const cors = require('cors');
+const port = process.env.PORT || 3000;
 require('dotenv').config()
 
 app.use(express.json());
@@ -34,6 +35,6 @@ app.get("/OSLeaderboard", (req, res) => {
 });
 
 
-app.listen(3000, "0.0.0.0", () => {
+app.listen(port, "0.0.0.0", () => {
     console.log('Server started on port 3000');
 });
